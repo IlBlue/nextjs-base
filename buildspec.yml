@@ -9,22 +9,22 @@ phases:
       #install npm
       - npm install
 
-    build:
-      commands:
-        # run build script
-        - npm run build
+  build:
+    commands:
+      # run build script
+      - npm run build
 
-  artifacts:
-    files:
-      - assest/**/*
-      - component/**/*
-      - pages/**/*
-      - pulbic/**/*
-      - scripts/**/*
-      - settings/**/*
-      - styles/**/*
-      # - jsconfig.json
-      - package.json
-      - appspec.yml
-      # - postcss.config.js
-      # - taiwind.config.js
+artifacts:
+  files:
+    - assest/**/*
+    - component/**/*
+    - pages/**/*
+    - pulbic/**/*
+    - scripts/**/*
+    - settings/**/*
+    - styles/**/*
+    # - jsconfig.json
+    - package.json
+    - appspec.yml
+    # - postcss.config.js
+    # - taiwind.config.js
