@@ -15,12 +15,16 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
   body {
     color: white;
     background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
 }

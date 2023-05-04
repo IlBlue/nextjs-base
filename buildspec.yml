@@ -16,15 +16,18 @@ phases:
 
 artifacts:
   files:
-    - assest/**/*
-    - component/**/*
+    # - assest/**/*
+    # - component/**/*
     - pages/**/*
     - pulbic/**/*
     - scripts/**/*
-    - settings/**/*
     - styles/**/*
-    # - jsconfig.json
-    - package.json
+    - .eslintrc.json
+    - .gitignore
     - appspec.yml
-    # - postcss.config.js
-    # - taiwind.config.js
+    - buildspec.yml
+    - next.config.js
+    - package-lock.json
+    - package.json
+    - README.md
+    - tsconfig.json

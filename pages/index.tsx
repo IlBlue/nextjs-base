@@ -1,8 +1,67 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react'
+import styles from '../styles/Home.module.scss'
 
 export default function Home() {
+
+  const [board, setBoard] = useState(new Array(9).fill(null))
+  const [isFirst, setIsFirst] = useState(false)
+  const [isWinner, setIsWinner] = useState<'X' | 'O' | null>(null)
+
+  useEffect(() => {
+    const listCheck: any = {
+      1: [
+        [2, 3],
+        [4, 7],
+        [5, 9]
+      ],
+      2: [
+        [5, 8]
+      ],
+      3: [
+        [5, 7],
+        [6, 9]
+      ],
+      4: [
+        [5, 6]
+      ],
+      7: [
+        [8, 9]
+      ]
+    }
+    for (let i in board) {
+      if (!!board[i]) {
+        const pointSelect = listCheck[+i + 1] || []
+        for (let list of pointSelect) {
+          let count = 0
+          for (let item of list) {
+            if (board[item - 1] == board[i]) {
+              if (!count)
+                count++
+              else {
+                setIsWinner(board[i])
+              }
+            }
+          }
+        }
+      }
+    }
+  }, [board])
+
+  function onClick(index: number) {
+    return () => {
+      if (!isWinner) {
+        if (!board[index]) {
+          const boardTemp = [...board]
+          boardTemp[index] = isFirst ? 'X' : 'O'
+          setBoard(boardTemp)
+          setIsFirst(prevState => !prevState)
+        }
+      }
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,59 +71,13 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        {
+          board.map((point, index) => <span onClick={onClick(index)} key={index}>{point}</span>)
+        }
       </main>
+      {isWinner && <p>Winner is {isWinner}</p>}
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
       </footer>
     </div>
   )
