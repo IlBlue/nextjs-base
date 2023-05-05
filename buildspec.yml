@@ -16,8 +16,7 @@ phases:
 
 artifacts:
   files:
-    # - assest/**/*
-    # - component/**/*
+    - assest/**/*
     - pages/**/*
     - pulbic/**/*
     - scripts/**/*
