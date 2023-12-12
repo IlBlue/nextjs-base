@@ -1,10 +1,8 @@
-// :global {
-//   body {
-//     background: #000;
-//   }
-// }
-
 .container {
+  height: 100vh;
+  display: flex;
+  background: #000;
+  flex-direction: column;
   p {
     color: #fff;
 
@@ -12,24 +10,83 @@
   }
 }
 
+@keyframes example {
+  0% {
+    scale: 1.1;
+  }
+  25% {
+    scale: 1;
+  }
+}
+
 .main {
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  width: 50vmin;
+  height: 50vmin;
   margin: auto;
   font-family: "Roboto";
 
   span {
     display: inline-flex;
     flex: 1 1 33.33%;
-    background: #fff;
-    width: 100px;
-    height: 100px;
+    // background: #fff;
     border: 2px solid #000;
-    color: #000;
+    color: #fff;
     align-items: center;
     justify-content: center;
     font-size: 4em;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
     cursor: pointer;
+    position: relative;
+
+    &:nth-child(3n) {
+      border-right-width: 0;
+    }
+    &:nth-child(n + 7) {
+      border-bottom-width: 0;
+    }
+
+    &.x,
+    &.o {
+      &::before,
+      &::after {
+        animation-name: example;
+        animation-duration: 1s;
+      }
+    }
+
+    &.x {
+      &:before,
+      &:after {
+        content: "";
+        width: 14px;
+        height: 75%;
+        background: #fff;
+        left: 50%;
+        top: 50%;
+        border-radius: 3px;
+        position: absolute;
+      }
+
+      &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      &:after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+
+    &.o {
+      &:before {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        border: 0.2em solid #fff;
+        border-radius: 50%;
+      }
+    }
   }
 }
