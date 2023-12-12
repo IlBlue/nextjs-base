@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
@@ -8,6 +8,15 @@ export default function Home() {
   const [board, setBoard] = useState(new Array(9).fill(null))
   const [isFirst, setIsFirst] = useState(false)
   const [isWinner, setIsWinner] = useState<'X' | 'O' | null>(null)
+
+  useEffect(() => {
+    console.log(111)
+    fetch(`https://9quexvb624.execute-api.ap-southeast-1.amazonaws.com/dev`, {
+      method: "POST",
+      headers: {},
+      body: JSON.stringify({ firstName: "abc", lastName: "bcd" }),
+    }).then((res) => console.log(res));
+  }, [])
 
   useEffect(() => {
     const listCheck: any = {
@@ -72,7 +81,7 @@ export default function Home() {
 
       <main className={styles.main}>
         {
-          board.map((point, index) => <span onClick={onClick(index)} key={index}>{point}</span>)
+          board.map((point, index) => <span className={styles[point?.toLowerCase() || '']} onClick={onClick(index)} key={index}></span>)
         }
       </main>
       {isWinner && <p>Winner is {isWinner}</p>}
